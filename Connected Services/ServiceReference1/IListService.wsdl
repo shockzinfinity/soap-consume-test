@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="IListService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:element name="GetResponses">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="requests" type="tns:ArrayOfCancelRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetResponsesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetResponsesResult" type="tns:ArrayOfCancelResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfCancelRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="CancelRequest" nillable="true" type="tns:CancelRequest" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCancelResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="CancelResponse" nillable="true" type="tns:CancelResponse" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CancelRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="RequestId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RequestServiceKey" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CancelResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="RequestId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ResultCode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ResultMessage" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IListService_GetResponses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponses" />
+  </wsdl:message>
+  <wsdl:message name="IListService_GetResponses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponsesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IListService">
+    <wsdl:operation name="GetResponses">
+      <wsdl:input message="tns:IListService_GetResponses_InputMessage" />
+      <wsdl:output message="tns:IListService_GetResponses_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding" type="tns:IListService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetResponses">
+      <soap:operation soapAction="http://tempuri.org/IListService/GetResponses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IListService">
+    <wsdl:port name="BasicHttpBinding" binding="tns:BasicHttpBinding">
+      <soap:address location="https://localhost:44350/ListService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
